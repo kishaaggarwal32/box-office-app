@@ -4,8 +4,10 @@ import { searchForShows, searchForPeople } from './../api/tvmaze';
 import SearchForm from '../components/SearchForm';
 import ShowGrid from '../components/shows/ShowGrid';
 import ActorsGrid from '../components/actors/ActorsGrid';
+
 const Home = () => {
   const [filter, setFilter] = useState(null);
+
   const { data: apiData, error: apiDataError } = useQuery({
     queryKey: ['search', filter],
     queryFn: () =>
@@ -33,7 +35,7 @@ const Home = () => {
       return apiData[0].show ? (
         <ShowGrid shows={apiData} />
       ) : (
-        <ActorsGrid shows={apiData} />
+        <ActorsGrid actors={apiData} />
       );
     }
     return null;
@@ -41,6 +43,7 @@ const Home = () => {
   return (
     <div>
       <SearchForm onSearch={onSearch} />
+
       <div>{renderApiData()}</div>
     </div>
   );
